@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="th">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ติดต่อเรา</title>
+    <link rel="stylesheet" href="css/navbar.css" />
+    <link rel="stylesheet" href="css/product.css" />
+    <link rel="stylesheet" href="css/detail.css" />
+    <link rel="stylesheet" href="css/contact.css" />
+  </head>
+  <body>
+    <iframe
+      id="menuFrame"
+      src="menu.html"
+      title="Menu"
+      class="menu-iframe"
+      style="width: 100%; height: 60px; border: none; overflow: hidden; display: block;"
+      scrolling="no"
+    ></iframe>
+    <script>
+      const menuFrame = document.getElementById('menuFrame');
+      window.addEventListener('message', (event) => {
+        if (event.data && event.data.type === 'set-menu-height' && menuFrame) {
+          menuFrame.style.height = `${Math.max(60, Number(event.data.height) || 60)}px`;
+        }
+      });
+    </script>
+    <section class="contact-section">
+      <h2>ติดต่อเรา</h2>
+      <p>
+        หากคุณมีคำถามหรือข้อสงสัยเกี่ยวกับเว็บไซต์ของเรา
+        กรุณาติดต่อเราผ่านช่องทางด้านล่าง:
+      </p>
+
+      <div class="contact-form-wrapper">
+        <h3>ส่งข้อความ</h3>
+        <form
+          action="https://api.web3forms.com/submit"
+          method="POST"
+          class="contact-form"
+        >
+          <div class="form-group">
+            <input
+              type="hidden"
+              name="access_key"
+              value="e05cebe9-9de0-4870-b945-bfc81feab08d"
+            />
+            <label for="name">ชื่อ-นามสกุล :</label>
+            <input type="text" id="name" name="name" required />
+          </div>
+          <div class="form-group">
+            <label for="email">อีเมล :</label>
+            <input type="email" id="email" name="email" required />
+          </div>
+          <div class="form-group">
+            <label for="message">ข้อความ :</label>
+            <textarea id="message" name="message" rows="5" required></textarea>
+          </div>
+          <button type="submit">ส่งข้อความ</button>
+        </form>
+      </div>
+    </section>
+
+    <section class="contact-details-section">
+      <div class="contact-container">
+        <!-- Contact Info -->
+        <div class="contact-info-wrapper">
+          <h3>ข้อมูลติดต่อ</h3>
+          <div class="info-item">
+            <h4>บริษัท</h4>
+            <p>MANGA</p>
+          </div>
+          <div class="info-item">
+            <h4>โทรศัพท์</h4>
+            <p><a href="tel:0655410225">065-5410-225</a></p>
+          </div>
+          <div class="info-item">
+            <h4>อีเมล</h4>
+            <p>
+              <a href="mailto:wittawat08961@gmail.com"
+                >wittawat08961@gmail.com</a
+              >
+            </p>
+          </div>
+          <div class="info-item">
+            <h4>เวลาทำการ</h4>
+            <p>วันจันทร์ - วันศุกร์<br />09:00 - 17:00 น.</p>
+          </div>
+        </div>
+
+        <div class="contact-map-wrapper">
+          <h3>ที่อยู่</h3>
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d66674.25741536725!2d100.88608533872409!3d12.667112074095353!3m2!1i1024!2i768!4f13.1!5e1!3m2!1sen!2sus!4v1786954170659!5m2!1sen!2sus"
+            width="600"
+            height="450"
+            style="border: 0"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="strict-origin-when-cross-origin"
+          >
+          </iframe>
+        </div>
+      </div>
+    </section>
+    <footer class="site-footer">
+      <div class="footer-content">
+        <div>
+          <h4>MANGA</h4>
+          <p>อ่านมังงะใหม่ทุกวัน พร้อมอัปเดตเรื่องโปรดให้คุณติดตามต่อเนื่อง</p>
+        </div>
+        <div>
+          <h4>ติดต่อเรา</h4>
+          <p>โทร: 065-5410-225</p>
+          <p>อีเมล: manga@verse.com</p>
+        </div>
+      </div>
+      <p class="footer-copy">© 2026 MANGA All rights reserved.</p>
+    </footer>
+  </body>
+</html>

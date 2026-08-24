@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="th">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>สมาชิก</title>
+    <link rel="stylesheet" href="css/navbar.css" />
+    <link rel="stylesheet" href="css/product.css" />
+    <style>
+      body {
+        margin: 0;
+        background: linear-gradient(180deg, #0a0c12 0%, #111827 100%);
+        color: #f3f4f6;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      .member-wrap {
+        max-width: 980px;
+        margin: 40px auto 80px;
+        padding: 0 20px;
+      }
+      .member-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+      }
+      .card {
+        background: rgba(15, 23, 42, 0.8);
+        border: 1px solid rgba(148, 163, 184, 0.2);
+        border-radius: 18px;
+        padding: 24px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+      }
+      h2, h3 { margin-top: 0; }
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+      label {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        color: #e5e7eb;
+      }
+      input {
+        width: 100%;
+        box-sizing: border-box;
+        border: 1px solid rgba(148, 163, 184, 0.3);
+        border-radius: 10px;
+        background: rgba(15, 23, 42, 0.9);
+        color: #f8fafc;
+        padding: 12px 14px;
+        font-size: 1rem;
+      }
+      button {
+        border: none;
+        background: linear-gradient(135deg, #7c3aed, #ec4899);
+        color: white;
+        border-radius: 10px;
+        padding: 12px 16px;
+        font-weight: 700;
+        cursor: pointer;
+      }
+      .secondary { background: #1f2937; }
+      .actions { display: flex; gap: 10px; flex-wrap: wrap; }
+      .notice {
+        display: none;
+        margin-top: 14px;
+        padding: 12px 14px;
+        border-radius: 10px;
+        font-size: 0.95rem;
+      }
+      .notice.success {
+        display: block;
+        background: rgba(16, 185, 129, 0.12);
+        border: 1px solid rgba(16, 185, 129, 0.4);
+        color: #a7f3d0;
+      }
+      .notice.error {
+        display: block;
+        background: rgba(239, 68, 68, 0.12);
+        border: 1px solid rgba(239, 68, 68, 0.4);
+        color: #fecaca;
+      }
+      .profile-box {
+        line-height: 1.8;
+        color: #dbeafe;
+      }
+      @media (max-width: 760px) { .member-grid { grid-template-columns: 1fr; } }
+    </style>
+  </head>
+  <body>
+    <iframe id="menuFrame" src="menu.html" title="Menu" class="menu-iframe" style="width:100%; height:60px; border:none; overflow:hidden; display:block;" scrolling="no"></iframe>
+    <script>
+      const menuFrame = document.getElementById('menuFrame');
+      window.addEventListener('message', (event) => {
+        if (event.data && event.data.type === 'set-menu-height' && menuFrame) {
+          menuFrame.style.height = `${Math.max(60, Number(event.data.height) || 60)}px`;
+        }
+      });
+    </script>
+
+    <main class="member-wrap">
+      <div class="member-grid">
+        <section class="card">
+          <h2>ระบบสมาชิก</h2>
+          <div class="actions" style="margin-bottom: 12px;">
+            <button type="button" class="secondary auth-mode active" data-mode="login">เข้าสู่ระบบ</button>
+            <button type="button" class="secondary auth-mode" data-mode="register">สมัครสมาชิก</button>
+          </div>
+          <form id="memberAuthForm">
+            <input type="hidden" id="authMode" value="login" />
+            <label>
+              Username
+              <input type="text" id="memberUsername" placeholder="กรอกชื่อผู้ใช้" required />
+            </label>
+            <label>
+              Password
+              <input type="password" id="memberPassword" placeholder="กรอกรหัสผ่าน" required />
+            </label>
+            <div class="actions">
+              <button type="submit" id="memberAuthSubmit">เข้าสู่ระบบ</button>
+              <button type="button" class="secondary" id="memberLogoutBtn">ออกจากระบบ</button>
+            </div>
+          </form>
+          <div id="memberAuthNotice" class="notice"></div>
+        </section>
+
+        <section class="card">
+          <h2>โปรไฟล์</h2>
+          <div id="userProfile" class="profile-box">ยังไม่ได้เข้าสู่ระบบ</div>
+        </section>
+      </div>
+    </main>
+
+    <script>
+      const MEMBER_STORAGE_KEY = 'mangaUserAccounts';
+      const CURRENT_USER_KEY = 'mangaCurrentUser';
+
+      function showNotice(element, message, type) {
+        element.textContent = message;
+        element.className = `notice ${type}`;
+      }
+
+      function getMemberAccounts() {
+        try {
+          const stored = localStorage.getItem(MEMBER_STORAGE_KEY);
+          return stored ? JSON.parse(stored) : [];
+        } catch (error) {
+          return [];
+        }
+      }
+
+      function saveMemberAccounts(accounts) {
+        localStorage.setItem(MEMBER_STORAGE_KEY, JSON.stringify(accounts));
+      }
+
+      function getCurrentUser() {
+        try {
+          const stored = localStorage.getItem(CURRENT_USER_KEY);
+          return stored ? JSON.parse(stored) : null;
+        } catch (error) {
+          return null;
+        }
+      }
+
+      function setCurrentUser(user) {
+        localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(user));
+      }
+
+      function clearCurrentUser() {
+        localStorage.removeItem(CURRENT_USER_KEY);
+      }
+
+      function renderProfile() {
+        const user = getCurrentUser();
+        const box = document.getElementById('userProfile');
+        if (!user) {
+          box.innerHTML = 'ยังไม่ได้เข้าสู่ระบบ<br />สมัครสมาชิกเพื่อเพิ่มเรื่องและ chapter ของตัวเอง';
+          return;
+        }
+
+        box.innerHTML = `
+          <strong>ชื่อผู้ใช้:</strong> ${user.username}<br />
+          <strong>บทบาท:</strong> สมาชิกทั่วไป<br />
+          <strong>สิทธิ์:</strong> เพิ่ม/ลบ/จัดการเรื่องที่ตัวเองสร้างเท่านั้น
+        `;
+      }
+
+      const authModeButtons = document.querySelectorAll('.auth-mode');
+      const memberAuthForm = document.getElementById('memberAuthForm');
+      const memberAuthSubmit = document.getElementById('memberAuthSubmit');
+      const memberAuthNotice = document.getElementById('memberAuthNotice');
+
+      function setAuthMode(mode) {
+        const nextMode = mode === 'register' ? 'register' : 'login';
+        document.getElementById('authMode').value = nextMode;
+        memberAuthSubmit.textContent = nextMode === 'register' ? 'สมัครสมาชิก' : 'เข้าสู่ระบบ';
+        authModeButtons.forEach((button) => {
+          button.classList.toggle('active', button.dataset.mode === nextMode);
+        });
+      }
+
+      authModeButtons.forEach((button) => {
+        button.addEventListener('click', () => setAuthMode(button.dataset.mode));
+      });
+
+      memberAuthForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const mode = document.getElementById('authMode').value;
+        const username = document.getElementById('memberUsername').value.trim();
+        const password = document.getElementById('memberPassword').value.trim();
+
+        if (!username || !password) {
+          showNotice(memberAuthNotice, 'กรุณากรอกชื่อผู้ใช้และรหัสผ่าน', 'error');
+          return;
+        }
+
+        const accounts = getMemberAccounts();
+
+        if (mode === 'register') {
+          if (accounts.some((item) => item.username.toLowerCase() === username.toLowerCase())) {
+            showNotice(memberAuthNotice, 'ชื่อผู้ใช้นี้มีอยู่แล้ว', 'error');
+            return;
+          }
+
+          accounts.push({ username, password, role: 'user' });
+          saveMemberAccounts(accounts);
+          memberAuthForm.reset();
+          setAuthMode('login');
+          showNotice(memberAuthNotice, 'สมัครสมาชิกสำเร็จแล้ว กรุณาเข้าสู่ระบบ', 'success');
+          return;
+        }
+
+        const account = accounts.find(
+          (item) => item.username.toLowerCase() === username.toLowerCase() && item.password === password
+        );
+
+        if (!account) {
+          showNotice(memberAuthNotice, 'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง', 'error');
+          return;
+        }
+
+        setCurrentUser({ username: account.username, role: 'user' });
+        memberAuthForm.reset();
+        showNotice(memberAuthNotice, 'เข้าสู่ระบบสำเร็จ', 'success');
+        renderProfile();
+      });
+
+      document.getElementById('memberLogoutBtn').addEventListener('click', () => {
+        clearCurrentUser();
+        renderProfile();
+        showNotice(memberAuthNotice, 'ออกจากระบบแล้ว', 'success');
+      });
+
+      setAuthMode('login');
+      renderProfile();
+    </script>
+  </body>
+</html>

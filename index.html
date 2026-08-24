@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="th">
+  <head>
+    <title>Manga Reader</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/navbar.css" />
+    <link rel="stylesheet" href="css/product.css" />
+    <link rel="stylesheet" href="css/detail.css" />
+  </head>
+
+  <body>
+    <iframe
+      id="menuFrame"
+      src="menu.html"
+      title="Menu"
+      class="menu-iframe"
+      style="width: 100%; height: 60px; border: none; overflow: hidden; display: block;"
+      scrolling="no"
+    ></iframe>
+
+    <header class="hero-banner">
+      <div class="hero-content">
+        <p class="eyebrow">Manga Universe</p>
+        <h1>อ่านมังงะแบบต่อเนื่องทุกวัน</h1>
+        <p>
+          คว้าชุดเรื่องโปรดที่มีความลุ้น ระทึก และสไตล์มากมาย
+          พร้อมเรื่องใหม่อัปเดตทุกสัปดาห์
+        </p>
+      </div>
+    </header>
+
+    <section class="gallery-section">
+      <div class="section-heading">
+        <p class="eyebrow">Gallery</p>
+        <h2>รูปภาพจากทุกไฟล์ในโฟลเดอร์</h2>
+      </div>
+      <div class="box" id="image-gallery"></div>
+    </section>
+
+    <div id="productModal" class="modal">
+      <div class="modal-content">
+        <span class="close-btn">&times;</span>
+        <img id="modal-image" src="" alt="รูปมังงะ" />
+        <h3 id="modal-title">ชื่อเรื่อง</h3>
+        <h4 id="modal-price">ภาพเต็ม</h4>
+        <a id="modal-view-link" href="#" target="_blank" rel="noreferrer">เปิดภาพเต็ม</a>
+      </div>
+    </div>
+
+    <footer class="site-footer">
+      <div class="footer-content">
+        <div>
+          <h4>MANGA</h4>
+          <p>อ่านมังงะใหม่ทุกวัน พร้อมอัปเดตเรื่องโปรดให้คุณติดตามต่อเนื่อง</p>
+        </div>
+        <div>
+          <h4>ติดต่อเรา</h4>
+          <p>โทร: 065-5410-225</p>
+          <p>อีเมล: manga@verse.com</p>
+        </div>
+      </div>
+      <p class="footer-copy">© 2026 MANGA All rights reserved.</p>
+    </footer>
+
+    <button id="backToTopBtn" class="back-to-top" aria-label="กลับขึ้นบน">Top</button>
+    <script src="css/detail.js"></script>
+  </body>
+</html>

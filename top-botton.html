@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Back to Top</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: transparent;
+        }
+        #backtotopBtn {
+            width: 60px;
+            height: 30px;
+            padding: 8px 12px;
+            font-size: 14px;
+            color: #fff;
+            background-color: #9442ff;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        #backtotopBtn:hover {
+            background-color: #ff0000;
+        }
+    </style>
+</head>
+<body>
+    <button id="backtotopBtn" onclick="scrollToTop()">Top</button>
+    <script>
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+    </script>
+</body>
+</html>

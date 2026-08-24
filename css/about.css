@@ -1,0 +1,61 @@
+.about-company {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 40px;
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 0 20px;
+    font-family: "Arial", sans-serif;
+}
+.company-image {
+    flex: 1;
+    max-width: 450px;
+}
+
+.company-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 10px 20px rgb(253, 253, 253);
+    display: block;
+}
+
+.company-details {
+    flex: 1,2;
+}
+
+.company-details h2 {
+    font-size: 26px;
+    margin: 0 0 8px 0;
+    color: #f487fa;
+}
+
+.red-line {
+    width: 130px;
+    height: 3px;
+    background-color: #f70167;
+    margin-bottom: 28px;
+}
+
+.info-table {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.info-row {
+    display: flex;
+}
+
+.info-label {
+    width: 140px;
+    font-weight: bold;
+    color: #fcce6c;
+    flex-shrink: 0;
+}
+.info-value {
+    color: #f7f4f4;
+    flex-grow: 1;
+    line-height: 1.6;
+}

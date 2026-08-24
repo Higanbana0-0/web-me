@@ -1,0 +1,237 @@
+/* Contact Section Styles */
+.contact-section {
+  max-width: 800px;
+  margin: 50px auto;
+  padding: 40px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 8px 10px rgba(0, 0, 0, 0.4);
+}
+
+.contact-section h2 {
+  color: #333;
+  text-align: center;
+  margin-bottom: 15px;
+  font-size: 28px;
+}
+
+.contact-section p {
+  color: #666;
+  text-align: center;
+  margin-bottom: 30px;
+  line-height: 1.6;
+}
+
+.contact-section form div {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-section label {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.contact-section input,
+.contact-section textarea {
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+  font-family: inherit;
+  transition:
+    border-color 0.3s,
+    box-shadow 0.3s;
+}
+
+.contact-section input:focus,
+.contact-section textarea:focus {
+  outline: none;
+  border-color: #fb0000;
+  box-shadow: 0 0 8px rgba(0, 110, 255, 0.2);
+}
+
+.contact-section button {
+  background-color: #0077ff;
+  color: white;
+  padding: 12px 30px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background-color 0.3s,
+    transform 0.2s;
+  align-self: center;
+  margin-top: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.contact-section button:hover {
+  background-color: #ff0000;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.4);
+}
+
+.contact-section button:active {
+  transform: translateY(0);
+}
+
+/* Contact Container Layout */
+.contact-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+  margin-top: 40px;
+}
+
+.contact-form-wrapper {
+  background-color: white;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition:
+    transform 0.3s,
+    box-shadow 0.3s;
+}
+
+.contact-form-wrapper:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.contact-form-wrapper h3 {
+  color: #0077ff;
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 18px;
+  border-bottom: 2px solid #0077ff;
+  padding-bottom: 10px;
+}
+
+/* Contact Details Section */
+.contact-details-section {
+  max-width: 1200px;
+  margin: 50px auto;
+  padding: 0 20px;
+}
+
+.contact-details-section .contact-container {
+  grid-template-columns: repeat(2, 1fr);
+  margin-top: 0;
+}
+
+.contact-info-wrapper {
+  background-color: white;
+  padding: 35px;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  transition:
+    transform 0.3s,
+    box-shadow 0.3s;
+  color: #333;
+}
+
+.contact-info-wrapper:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+.contact-info-wrapper h3 {
+  color: #333;
+  margin-top: 0;
+  margin-bottom: 25px;
+  font-size: 22px;
+  border-bottom: 3px solid #ddd;
+  padding-bottom: 15px;
+  font-weight: 700;
+}
+
+.contact-info-wrapper .info-item {
+  margin-bottom: 25px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.contact-info-wrapper .info-item:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.contact-info-wrapper .info-item h4 {
+  margin: 0 0 8px 0;
+  color: #333;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.contact-info-wrapper .info-item p {
+  margin: 0;
+  color: #666;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.contact-info-wrapper .info-item a {
+  color: #0077ff;
+  text-decoration: none;
+  transition: color 0.3s;
+  font-weight: 500;
+}
+
+.contact-info-wrapper .info-item a:hover {
+  color: #ff0000;
+  text-decoration: underline;
+}
+
+.contact-map-wrapper {
+  background-color: white;
+  padding: 0;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  transition:
+    transform 0.3s,
+    box-shadow 0.3s;
+  overflow: hidden;
+}
+
+.contact-map-wrapper:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+}
+
+.contact-map-wrapper h3 {
+  color: #333;
+  margin: 0;
+  padding: 20px;
+  font-size: 22px;
+  border-bottom: 3px solid #ddd;
+  font-weight: 700;
+}
+
+.contact-map-wrapper iframe {
+  display: block;
+  width: 100% !important;
+  height: 350px !important;
+  border: none !important;
+}
+
+@media (max-width: 1024px) {
+  .contact-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .contact-container {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}

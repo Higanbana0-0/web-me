@@ -1,0 +1,138 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #0b1020;
+  color: #e5e7eb;
+}
+
+.navbar {
+  position: relative;
+  background: rgba(15, 23, 42, 0.96);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 30px;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.35);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+}
+
+body {
+  margin: 0;
+  background: transparent;
+}
+
+.navbar .logo {
+  color: #f8fafc;
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.navbar ul {
+  display: flex;
+  list-style: none;
+  align-items: center;
+}
+
+.navbar ul li {
+  margin-left: 16px;
+}
+
+.navbar ul li a {
+  display: inline-block;
+  color: #e2e8f0;
+  text-decoration: none;
+  font-size: 15px;
+  padding: 9px 14px;
+  border-radius: 999px;
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease,
+    transform 0.25s ease;
+}
+
+.navbar ul li a:hover {
+  background: linear-gradient(135deg, #f59e0b, #ef4444);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.navbar .logo-image {
+  width: 60px;
+  height: 60px;
+  display: block;
+}
+
+.navbar .brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.brand-text {
+  color: #f8fafc;
+  font-size: 20px;
+  font-weight: 700;
+  margin-left: 6px;
+}
+
+.navbar-toggle {
+  display: none;
+  width: 46px;
+  height: 46px;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  border-radius: 12px;
+  background: rgba(15, 23, 42, 0.8);
+  color: #f8fafc;
+  font-size: 22px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 720px) {
+  .navbar {
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 14px 18px;
+  }
+
+  .navbar-toggle {
+    display: inline-flex;
+  }
+
+  .navbar ul {
+    display: none;
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    margin-top: 6px;
+    padding-top: 8px;
+    border-top: 1px solid rgba(148, 163, 184, 0.2);
+  }
+
+  .navbar.open ul {
+    display: flex;
+  }
+
+  .navbar ul li {
+    margin-left: 0;
+  }
+
+  .navbar ul li a {
+    width: 100%;
+    text-align: left;
+    border-radius: 10px;
+  }
+}

@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="th">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>เมนู</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/navbar.css" />
+    <link rel="stylesheet" href="css/product.css" />
+    <link rel="stylesheet" href="css/detail.css" />
+  </head>
+  <body>
+    <nav class="navbar" id="mainNav">
+      <div class="logo">MANGA</div>
+      <button class="navbar-toggle" id="navToggle" aria-label="เปิดเมนู" aria-expanded="false">
+        ☰
+      </button>
+      <ul>
+        <li><a href="index.html" target="_parent">หน้าหลัก</a></li>
+        <li><a href="about.html" target="_parent">เกี่ยวกับเรา</a></li>
+        <li><a href="contact.html" target="_parent">ติดต่อเรา</a></li>
+        <li><a href="member.html" target="_parent">สมาชิก</a></li>
+        <li><a href="admin.html" target="_parent">Admin</a></li>
+      </ul>
+    </nav>
+
+    <script>
+      const nav = document.getElementById('mainNav');
+      const navToggle = document.getElementById('navToggle');
+
+      function updateParentHeight() {
+        const height = document.body.scrollHeight + 12;
+        if (window.parent && window.parent !== window) {
+          window.parent.postMessage({ type: 'set-menu-height', height }, '*');
+        }
+      }
+
+      if (nav && navToggle) {
+        navToggle.addEventListener('click', () => {
+          const open = nav.classList.toggle('open');
+          navToggle.setAttribute('aria-expanded', String(open));
+          navToggle.textContent = open ? '✕' : '☰';
+          updateParentHeight();
+        });
+
+        nav.querySelectorAll('a').forEach((link) => {
+          link.addEventListener('click', () => {
+            nav.classList.remove('open');
+            navToggle.setAttribute('aria-expanded', 'false');
+            navToggle.textContent = '☰';
+            updateParentHeight();
+          });
+        });
+      }
+
+      window.addEventListener('resize', updateParentHeight);
+      updateParentHeight();
+    </script>
+  </body>
+</html>

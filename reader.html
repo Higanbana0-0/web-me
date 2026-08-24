@@ -1,0 +1,461 @@
+<!doctype html>
+<html lang="th">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manga Reader</title>
+    <link rel="stylesheet" href="css/navbar.css" />
+    <link rel="stylesheet" href="css/product.css" />
+    <style>
+      body {
+        margin: 0;
+        background: linear-gradient(180deg, #0b1020 0%, #111827 100%);
+        color: #f8fafc;
+      }
+
+      .reader-shell {
+        max-width: 1200px;
+        margin: 40px auto 80px;
+        padding: 0 20px;
+      }
+
+      .reader-toolbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 18px 0 12px;
+        gap: 12px;
+      }
+
+      .back-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px 16px;
+        border-radius: 999px;
+        border: 1px solid rgba(148, 163, 184, 0.35);
+        background: rgba(15, 23, 42, 0.8);
+        color: #f8fafc;
+        text-decoration: none;
+        font-weight: 700;
+        cursor: pointer;
+        transition: transform 0.2s ease, border-color 0.2s ease;
+      }
+
+      .back-button:hover {
+        transform: translateY(-1px);
+        border-color: rgba(251, 191, 36, 0.8);
+      }
+
+      .reader-top {
+        display: grid;
+        grid-template-columns: minmax(220px, 260px) minmax(0, 1fr);
+        gap: 28px;
+        align-items: start;
+      }
+
+      .cover-card {
+        background: rgba(15, 23, 42, 0.9);
+        border: 1px solid rgba(148, 163, 184, 0.18);
+        border-radius: 24px;
+        overflow: hidden;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.22);
+      }
+
+      .cover-card img {
+        width: 100%;
+        height: 360px;
+        object-fit: cover;
+        display: block;
+      }
+
+      .reader-info {
+        background: rgba(15, 23, 42, 0.75);
+        border: 1px solid rgba(148, 163, 184, 0.18);
+        border-radius: 24px;
+        padding: 24px 26px;
+      }
+
+      .reader-tag {
+        display: inline-block;
+        background: rgba(251, 191, 36, 0.12);
+        color: #fbbf24;
+        border: 1px solid rgba(251, 191, 36, 0.3);
+        border-radius: 999px;
+        padding: 7px 12px;
+        font-size: 12px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .reader-info h1 {
+        margin-top: 18px;
+        margin-bottom: 10px;
+        font-size: clamp(2rem, 3vw, 3rem);
+      }
+
+      .reader-info p {
+        color: #d1d5db;
+        line-height: 1.75;
+      }
+
+      .chapter-panel {
+        margin-top: 32px;
+        background: rgba(15, 23, 42, 0.8);
+        border: 1px solid rgba(148, 163, 184, 0.18);
+        border-radius: 24px;
+        padding: 22px 20px;
+      }
+
+      .chapter-panel h2 {
+        margin-bottom: 16px;
+        font-size: 1.5rem;
+      }
+
+      .chapter-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 12px;
+      }
+
+      .chapter-button {
+        border: 1px solid rgba(251, 191, 36, 0.35);
+        background: rgba(251, 191, 36, 0.08);
+        color: #f8fafc;
+        border-radius: 14px;
+        padding: 14px 12px;
+        text-align: left;
+        cursor: pointer;
+        transition:
+          transform 0.2s ease,
+          background 0.2s ease,
+          border-color 0.2s ease;
+      }
+
+      .chapter-button:hover {
+        background: rgba(239, 68, 68, 0.12);
+        transform: translateY(-2px);
+      }
+
+      .chapter-button.active {
+        background: linear-gradient(135deg, rgba(251, 191, 36, 0.2), rgba(239, 68, 68, 0.16));
+        border-color: rgba(251, 191, 36, 0.9);
+        box-shadow: 0 10px 18px rgba(251, 191, 36, 0.15);
+      }
+
+      .chapter-button strong {
+        display: block;
+        font-size: 1rem;
+      }
+
+      .chapter-button span {
+        color: #d1d5db;
+        font-size: 0.82rem;
+      }
+
+      .reader-preview {
+        margin-top: 28px;
+        display: grid;
+        gap: 18px;
+      }
+
+      .reader-page {
+        background: rgba(15, 23, 42, 0.8);
+        border: 1px solid rgba(148, 163, 184, 0.2);
+        border-radius: 18px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        min-height: 520px;
+        max-height: 78vh;
+      }
+
+      .reader-page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 16px;
+        background: rgba(2, 6, 23, 0.9);
+        color: #fbbf24;
+        font-size: 0.85rem;
+        letter-spacing: 0.04em;
+      }
+
+      .reader-page img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        max-height: 72vh;
+        object-fit: contain;
+        background: rgba(2, 6, 23, 0.7);
+      }
+
+      @media (max-width: 780px) {
+        .reader-toolbar {
+          margin-top: 10px;
+        }
+
+        .reader-top {
+          grid-template-columns: 1fr;
+        }
+
+        .cover-card img {
+          height: 320px;
+        }
+
+        .chapter-list {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+
+      @media (max-width: 540px) {
+        .reader-shell {
+          padding: 0 14px 40px;
+        }
+
+        .reader-top {
+          gap: 18px;
+        }
+
+        .reader-info {
+          padding: 18px 16px;
+        }
+
+        .chapter-list {
+          grid-template-columns: 1fr;
+        }
+
+        .reader-page-header {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 6px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <iframe
+      id="menuFrame"
+      src="menu.html"
+      title="Menu"
+      class="menu-iframe"
+      style="width: 100%; height: 60px; border: none; overflow: hidden; display: block;"
+      scrolling="no"
+    ></iframe>
+
+    <script>
+      const menuFrame = document.getElementById('menuFrame');
+      window.addEventListener('message', (event) => {
+        if (event.data && event.data.type === 'set-menu-height' && menuFrame) {
+          menuFrame.style.height = `${Math.max(60, Number(event.data.height) || 60)}px`;
+        }
+      });
+    </script>
+
+    <main class="reader-shell">
+      <div class="reader-toolbar">
+        <button id="backBtn" class="back-button" type="button">← กลับ</button>
+      </div>
+
+      <section class="reader-top">
+        <div class="cover-card">
+          <img id="coverImage" src="" alt="cover" />
+        </div>
+
+        <div class="reader-info">
+          <span class="reader-tag">Manga</span>
+          <h1 id="mangaTitle">Loading...</h1>
+          <p id="mangaDescription">กำลังโหลดข้อมูลเรื่อง...</p>
+        </div>
+      </section>
+
+      <section class="chapter-panel">
+        <h2>เลือกตอนอ่าน</h2>
+        <div id="chapterList" class="chapter-list"></div>
+      </section>
+
+      <section id="readerPreview" class="reader-preview"></section>
+    </main>
+
+    <script>
+      const defaultMangaData = {
+        kagurabachi: {
+          title: "Kagurabachi",
+          image: "img/Kagurabachi.jpg",
+          description:
+            "เรื่องราวของช่างตีดาบผู้มีพรสวรรค์และต้องเผชิญกับกาลเวลาที่หมุนวนกลับมาครั้งใหม่",
+          chapters: [
+            { name: "Chapter 01", pages: 4 },
+            { name: "Chapter 02", pages: 4 },
+            { name: "Chapter 03", pages: 4 },
+            { name: "Chapter 04", pages: 4 },
+          ],
+        },
+        "semi-friend": {
+          title: "Koutsugou Semi-Friend",
+          image: "img/Koutsugou Semi-Friend.jpg",
+          description:
+            "ความสัมพันธ์ที่เริ่มจากความคุ้นเคยกลายเป็นเรื่องราวอันอบอุ่นและน่าจดจำในทุกวัน",
+          chapters: [
+            { name: "Chapter 01", pages: 4 },
+            { name: "Chapter 02", pages: 4 },
+            { name: "Chapter 03", pages: 4 },
+            { name: "Chapter 04", pages: 4 },
+          ],
+        },
+        "older-brother": {
+          title: "She's Likely Aiming for My Older Brother",
+          image: "img/She's Likely Aiming for My Older Brother.jpg",
+          description:
+            "เรื่องราวขำขันและอบอุ่นของการเข้าใจคนในครอบครัวที่อาจจะไม่เหมือนที่คิด",
+          chapters: [
+            { name: "Chapter 01", pages: 4 },
+            { name: "Chapter 02", pages: 4 },
+            { name: "Chapter 03", pages: 4 },
+            { name: "Chapter 04", pages: 4 },
+          ],
+        },
+        "tonari-neko": {
+          title: "Tonari no Neko to Koi Shirazu",
+          image: "img/Tonari no Neko to Koi Shirazu.jpg",
+          description:
+            "ความรักอันนุ่มนวลระหว่างคนกับสัตว์เลี้ยงที่เปิดประตูสู่โลกแห่งความหวังและความอบอุ่น",
+          chapters: [
+            { name: "Chapter 01", pages: 4 },
+            { name: "Chapter 02", pages: 4 },
+            { name: "Chapter 03", pages: 4 },
+            { name: "Chapter 04", pages: 4 },
+          ],
+        },
+        "love-hurts": {
+          title: "เพราะว่ารักเธอมันเจ็บ",
+          image:
+            "img/[ R ] เพราะว่ารักเธอมันเจ็บ - Kimi Ni Aisarete Itakatta.jpg",
+          description:
+            "เส้นทางความรักที่เจ็บแปลกแต่ลึกซึ้ง พร้อมกับการเรียนรู้ว่า “การรัก” ไม่ได้ง่ายเสมอไป",
+          chapters: [
+            { name: "Chapter 01", pages: 4 },
+            { name: "Chapter 02", pages: 4 },
+            { name: "Chapter 03", pages: 4 },
+            { name: "Chapter 04", pages: 4 },
+          ],
+        },
+        "crimson-cross": {
+          title: "กางเขนสีชาด",
+          image: "img/กางเขนสีชาด - JUUJIKA NO ROKUNIN「十字架のろくにん」.jpg",
+          description:
+            "ความท้าทายทางจิตใจและการต่อสู้ที่ต้องใช้ทุกสิ่งทุกอย่างเพื่อก้าวออกจากเงามืด",
+          chapters: [
+            { name: "Chapter 01", pages: 4 },
+            { name: "Chapter 02", pages: 4 },
+            { name: "Chapter 03", pages: 4 },
+            { name: "Chapter 04", pages: 4 },
+          ],
+        },
+      };
+
+      function slugify(value) {
+        return String(value || "")
+          .toLowerCase()
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+          .replace(/[^a-z0-9\s-]/g, "")
+          .trim()
+          .replace(/\s+/g, "-")
+          .replace(/-+/g, "-");
+      }
+
+      function normalizeChapter(chapter, fallbackIndex = 1) {
+        const name = chapter && chapter.name ? chapter.name.trim() : `Chapter ${String(fallbackIndex).padStart(2, '0')}`;
+        const pages = Number(chapter && chapter.pages) > 0 ? Number(chapter.pages) : 3;
+        const pageImages = Array.isArray(chapter && chapter.pageImages)
+          ? chapter.pageImages.slice(0, pages).map((image) => String(image || '').trim())
+          : Array.from({ length: pages }, () => '');
+        return { name, pages, pageImages };
+      }
+
+      function getSavedMangaData() {
+        try {
+          const saved = JSON.parse(localStorage.getItem("mangaGalleryItems") || "[]");
+          const result = {};
+          saved.forEach((item) => {
+            const slug = slugify(item.title || item.slug || "manga");
+            if (!slug) return;
+
+            const chapters = Array.isArray(item.chapters) && item.chapters.length
+              ? item.chapters.map((chapter, index) => normalizeChapter(chapter, index + 1))
+              : [{ name: "Chapter 01", pages: 3, pageImages: ['', '', ''] }];
+
+            result[slug] = {
+              title: item.title || "Untitled",
+              image: item.image || "",
+              description: item.description || "เรื่องราวที่น่าติดตาม",
+              chapters,
+            };
+          });
+          return result;
+        } catch (error) {
+          return {};
+        }
+      }
+
+      const mangaData = { ...defaultMangaData, ...getSavedMangaData() };
+      const params = new URLSearchParams(window.location.search);
+      const key = params.get("manga") || "kagurabachi";
+      const selected = mangaData[key] || mangaData.kagurabachi;
+
+      document.getElementById("coverImage").src = selected.image;
+      document.getElementById("coverImage").alt = selected.title;
+      document.getElementById("mangaTitle").textContent = selected.title;
+      document.getElementById("mangaDescription").textContent =
+        selected.description;
+
+      const chapterList = document.getElementById("chapterList");
+      const readerPreview = document.getElementById("readerPreview");
+      const backBtn = document.getElementById("backBtn");
+
+      backBtn.addEventListener("click", () => {
+        if (document.referrer && document.referrer !== "") {
+          window.history.back();
+        } else {
+          window.location.href = "index.html";
+        }
+      });
+
+      selected.chapters.forEach((chapter, index) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "chapter-button";
+        button.innerHTML = `<strong>${chapter.name}</strong><span>${chapter.pages} หน้า</span>`;
+        button.addEventListener("click", () => renderChapter(index));
+        chapterList.appendChild(button);
+      });
+
+      function renderChapter(chapterIndex) {
+        const chapter = selected.chapters[chapterIndex];
+        const pages = Array.from({ length: chapter.pages }, (_, pageIndex) => {
+          const pageNumber = pageIndex + 1;
+          const pageImage = (chapter.pageImages && chapter.pageImages[pageIndex]) || selected.image;
+          return `
+            <div class="reader-page">
+              <div class="reader-page-header">
+                <span>${selected.title}</span>
+                <span>${chapter.name} • หน้า ${pageNumber}</span>
+              </div>
+              <img src="${pageImage}" alt="${selected.title} ${chapter.name} หน้า ${pageNumber}" />
+            </div>
+          `;
+        }).join("");
+
+        readerPreview.innerHTML = pages;
+        document.querySelectorAll(".chapter-button").forEach((btn, index) => {
+          btn.classList.toggle("active", index === chapterIndex);
+        });
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      renderChapter(0);
+    </script>
+  </body>
+</html>
